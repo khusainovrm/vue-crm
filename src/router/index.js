@@ -23,7 +23,7 @@ Vue.use(VueRouter)
       component: () => import ("../views/Categories.vue")
     },
     {
-      path: '/histoty',
+      path: '/history',
       name: 'histoty',
       meta: {layout: "main"},
       component: () => import ("../views/History.vue")

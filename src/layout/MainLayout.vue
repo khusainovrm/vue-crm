@@ -1,7 +1,7 @@
 <template>
 <div class="app-main-layout">
 
-  <Navbar/>
+  <Navbar @side="side'/>
   
   <Sidebar />
 
@@ -27,7 +27,13 @@ export default {
   name: "main-layouy",
   components: {
     Navbar, Sidebar
+  },
+  methods: {
+    side (){
+      console.log("done")
+    }
   }
+
 }
 </script>
 

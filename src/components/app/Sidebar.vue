@@ -6,7 +6,7 @@
     :key="link.url"
     tag="li" 
     active-class="active"
-    exact
+    :exact="link.exact"
     :to="link.url"
     >
       <a href="#" class="waves-effect waves-orange pointer">{{ link.title }}</a>
@@ -18,7 +18,7 @@
 export default {
   data: () => ({
     links: [
-      {title:"Счет", url: "/home"},
+      {title:"Счет", url: "/home", exact: true},
       {title:"История", url: "/history"},
       {title:"Планирование", url: "/planing"},
       {title:"Новая запись", url: "/record"},
