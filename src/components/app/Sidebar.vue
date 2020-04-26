@@ -1,5 +1,5 @@
 <template>
-  <ul class="sidenav app-sidenav open">
+  <ul class="sidenav app-sidenav" :class="{open: value}">
 
     <router-link 
     v-for="link in links"
@@ -24,7 +24,8 @@ export default {
       {title:"Новая запись", url: "/record"},
       {title:"Категории", url: "/categories"}  
     ]
-  })
+  }),
+  props: ["value"]
 
 }
 </script>

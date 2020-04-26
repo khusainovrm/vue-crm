@@ -1,20 +1,22 @@
 <template>
 <div class="app-main-layout">
 
-  <Navbar @side="side'/>
+  <Navbar @click="isOpen=!isOpen"/>
   
-  <Sidebar />
+  <Sidebar v-model="isOpen" />
 
-  <main class="app-content">
+  <main class="app-content" :class="{full: !isOpen}" >
     <div class="app-page">
       <router-view/>
     </div>
   </main>
 
   <div class="fixed-action-btn">
-    <a class="btn-floating btn-large blue" href="#">
-      <i class="large material-icons">add</i>
-    </a>
+    <router-link to="/record" >
+      <a class="btn-floating btn-large blue" href="#">
+        <i class="large material-icons">add</i>
+      </a>
+    </router-link>
   </div>
 </div>
 </template>
@@ -25,13 +27,13 @@ import Sidebar from "@/components/app/Sidebar.vue"
 
 export default {
   name: "main-layouy",
+  data: () => ({
+    isOpen: true
+  }),
   components: {
     Navbar, Sidebar
   },
   methods: {
-    side (){
-      console.log("done")
-    }
   }
 
 }
