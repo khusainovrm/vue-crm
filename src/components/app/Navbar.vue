@@ -5,13 +5,14 @@
         <a href="#" @click.prevent="$emit('click')">
           <i class="material-icons black-text">dehaze</i>
         </a>
-        <span class="black-text">12.12.12</span>
+        <span class="black-text">{{date | date('datetime')}}</span>
       </div>
 
       <ul class="right hide-on-small-and-down">
         <li>
           <a
               class="dropdown-trigger black-text"
+              ref="dropDown"
               href="#"
               data-target="dropdown"
           >
@@ -21,15 +22,15 @@
 
           <ul id='dropdown' class='dropdown-content'>
             <li>
-              <a href="#" class="black-text">
+              <router-link to="/profile" class="black-text">
                 <i class="material-icons">account_circle</i>Профиль
-              </a>
+              </router-link>
             </li>
             <li class="divider" tabindex="-1"></li>
             <li>
-              <a href="#" class="black-text">
-                <i class="material-icons">assignment_return</i>Выйти
-              </a>
+              <router-link to="/login?message=logout" class="black-text" >
+                  <i class="material-icons">assignment_return</i>Выйти             
+              </router-link>
             </li>
           </ul>
         </li>
@@ -39,7 +40,27 @@
 </template>
 
 <script>
+import M from 'materialize-css' 
+
 export default {
+  data: () => ({
+    date: new Date(),
+    interval: null,
+    dropDown : null
+  }),
+  mounted () {
+       this.dropDown = M.Dropdown.init(this.$refs.dropDown)
+       this.interval =  setInterval(()=> {
+         this.date = new Date ()
+         }, 1000)
+  },
+  beforeDestroy () {
+    console.log("deser")
+    clearInterval(this.interval)
+    if (this.dropDown && this.dropDown.destroy) {
+      this.dropDown.destroy()
+    }
+  }
 }
 </script>
 
