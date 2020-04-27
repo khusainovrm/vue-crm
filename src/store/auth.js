@@ -15,7 +15,6 @@ export default {
       try {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
         const uid = await dispatch("getUid")
-        console.log(uid)
         await firebase.database().ref(`users/${uid}/info/`).set({
           name,
           bill: 1000
