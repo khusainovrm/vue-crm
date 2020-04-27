@@ -16,7 +16,7 @@
               href="#"
               data-target="dropdown"
           >
-            USER NAME
+            {{name}}
             <i class="material-icons right">arrow_drop_down</i>
           </a>
 
@@ -46,13 +46,18 @@ export default {
   data: () => ({
     date: new Date(),
     interval: null,
-    dropDown : null
+
   }),
   mounted () {
        this.dropDown = M.Dropdown.init(this.$refs.dropDown)
        this.interval =  setInterval(()=> {
          this.date = new Date ()
          }, 1000)
+  },
+  computed: {
+    name () {
+      return this.$store.getters.info.name
+    }
   },
   methods: {
     async logout () {

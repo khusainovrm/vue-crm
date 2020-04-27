@@ -18,6 +18,7 @@
       </a>
     </router-link>
   </div>
+  
 </div>
 </template>
 
@@ -28,10 +29,16 @@ import Sidebar from "@/components/app/Sidebar.vue"
 export default {
   name: "main-layouy",
   data: () => ({
-    isOpen: true
+    isOpen: true,
   }),
   components: {
     Navbar, Sidebar
+  },
+  async mounted (){
+    if (!Object.keys(this.$store.getters.info).length){
+      await this.$store.dispatch("fetchInfo")
+
+    }
   },
   methods: {
   }
