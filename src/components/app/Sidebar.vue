@@ -18,7 +18,7 @@
 export default {
   data: () => ({
     links: [
-      {title:"Счет", url: "/home", exact: true},
+      {title:"Счет", url: "/", exact: true},
       {title:"История", url: "/history"},
       {title:"Планирование", url: "/planing"},
       {title:"Новая запись", url: "/record"},

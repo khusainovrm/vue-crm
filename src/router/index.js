@@ -29,7 +29,7 @@ Vue.use(VueRouter)
       component: () => import ("../views/History.vue")
     },
     {
-      path: '/home',
+      path: '/',
       name: 'home',
       meta: {layout: "main"},
       component: () => import ("../views/Home.vue")

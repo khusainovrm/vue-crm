@@ -6,20 +6,24 @@
       <input
           id="email"
           type="text"
-          v-model.trim="email"
-      >
+          v-model="email"
+          :class="{invalid:($v.email.$dirty && !$v.email.required) ||($v.email.$dirty && !$v.email.email)}"
+          >
       <label for="email">Email</label>
-      <small class="helper-text invalid">Email</small>
+      <small v-if="$v.email.$dirty && !$v.email.required" class="helper-text invalid">Email не должен быть пустым</small>
+      <small v-else-if="$v.email.$dirty && !$v.email.email" class="helper-text invalid">Введите корректный email</small>
+
     </div>
     <div class="input-field">
       <input
           id="password"
           type="password"
-          v-model.trim="password"
-          :class="{invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}"
+          v-model="password"
+          :class="{invalid:($v.password.$dirty && !$v.password.required) ||($v.password.$dirty && !$v.password.minLength)}"
       >
       <label for="password">Пароль</label>
-      <small class="helper-text invalid">Password</small>
+      <small v-if="$v.password.$dirty && !$v.password.required" class="helper-text invalid">Введите пароль</small>
+      <small v-else-if="$v.password.$dirty && !$v.password.minLength" class="helper-text invalid">`Пароль должен быть не менее {{$v.password.$params.minLength.min}} символов, вы ввели {{password.length}}`</small>
     </div>
   </div>
   <div class="card-action">
@@ -42,28 +46,38 @@
 </template>
 
 <script>
-import { required, minLength, email } from 'vuelidate/lib/validators'
+import {email, required, minLength} from 'vuelidate/lib/validators'
+import messages from '@/utils/message'
+
 
 export default {
   name: "login",
-  date: () => ({
+  data: () => ({
     email : '',
     password: ''
   }),
   validations: {
     email: {email, required},
-    password: {required, minLength : minLength(6)}
+    password: {required, minLength:minLength(6)}
   },
   methods: {
     submitHandler () {
-      if (this.$v.invalid) {
+      if (this.$v.$invalid) {
         this.$v.$touch()
         return
       }
-      this.$router.push("/home")
+      const obj = {
+        name:this.email,
+        pass:this.password,
+        }
+        console.log(obj)
+      this.$router.push("/")
     }
-  }
-
+  },
+  mounted() {
+    if (this.$route.query.message in messages)
+      this.$message(messages[this.$route.query.message])
+    }
 }
 </script>
 

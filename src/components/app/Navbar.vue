@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import M from 'materialize-css' 
+import M from 'materialize-css'
 
 export default {
   data: () => ({
@@ -55,7 +55,6 @@ export default {
          }, 1000)
   },
   beforeDestroy () {
-    console.log("deser")
     clearInterval(this.interval)
     if (this.dropDown && this.dropDown.destroy) {
       this.dropDown.destroy()

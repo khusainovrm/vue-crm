@@ -1,15 +1,17 @@
 import Vue from 'vue'
-import App from './App.vue'
 import Vuelidate from 'vuelidate'
-import './registerServiceWorker'
+import App from './App.vue'
 import router from './router'
-import store from './store'
-import dateFilter from './filter/dateFilter'
+import store from './store' 
+import dateFilter from '@/filter/dateFilter'
+import messagePlugin from '@/utils/message.plugin'
+import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min.js'
 
 Vue.config.productionTip = false
 
 Vue.use(Vuelidate)
+Vue.use(messagePlugin)
 Vue.filter("date", dateFilter)
 
 new Vue({
