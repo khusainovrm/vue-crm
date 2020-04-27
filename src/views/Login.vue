@@ -7,7 +7,7 @@
           id="email"
           type="text"
           v-model="email"
-          :class="{invalid:($v.email.$dirty && !$v.email.required) ||($v.email.$dirty && !$v.email.email)}"
+          :class="{invalid:($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}"
           >
       <label for="email">Email</label>
       <small v-if="$v.email.$dirty && !$v.email.required" class="helper-text invalid">Email не должен быть пустым</small>
@@ -61,17 +61,22 @@ export default {
     password: {required, minLength:minLength(6)}
   },
   methods: {
-    submitHandler () {
+    async submitHandler () {
       if (this.$v.$invalid) {
         this.$v.$touch()
         return
       }
-      const obj = {
-        name:this.email,
-        pass:this.password,
+      const formData = {
+        email:this.email,
+        password:this.password,
         }
-        console.log(obj)
-      this.$router.push("/")
+      try {
+        await this.$store.dispatch("login", formData)
+        this.$router.push("/")
+      } catch (e) {
+        console.log(e)
+      }
+      
     }
   },
   mounted() {
