@@ -1,24 +1,27 @@
 <template>
-<div class="app-main-layout">
+<div>
+  <Loader v-if="loading" />
+  <div class="app-main-layout" v-else>
 
-  <Navbar @click="isOpen=!isOpen"/>
-  
-  <Sidebar v-model="isOpen" />
+    <Navbar @click="isOpen=!isOpen"/>
 
-  <main class="app-content" :class="{full: !isOpen}" >
-    <div class="app-page">
-      <router-view/>
+    <Sidebar v-model="isOpen" />
+
+    <main class="app-content" :class="{full: !isOpen}" >
+      <div class="app-page">
+        <router-view/>
+      </div>
+    </main>
+
+    <div class="fixed-action-btn">
+      <router-link to="/record" >
+        <a class="btn-floating btn-large blue" href="#">
+          <i class="large material-icons">add</i>
+        </a>
+      </router-link>
     </div>
-  </main>
 
-  <div class="fixed-action-btn">
-    <router-link to="/record" >
-      <a class="btn-floating btn-large blue" href="#">
-        <i class="large material-icons">add</i>
-      </a>
-    </router-link>
   </div>
-  
 </div>
 </template>
 
@@ -30,6 +33,7 @@ export default {
   name: "main-layouy",
   data: () => ({
     isOpen: true,
+    loading: true
   }),
   components: {
     Navbar, Sidebar
@@ -38,6 +42,7 @@ export default {
     if (!Object.keys(this.$store.getters.info).length){
       await this.$store.dispatch("fetchInfo")
 
+    this.loading = false
     }
   },
   methods: {
