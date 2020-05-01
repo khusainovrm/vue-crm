@@ -6,6 +6,7 @@
 
           <p class="currency-line">
             <span>12.0 Р</span>
+            <span>{{rates}}</span>
           </p>
         </div>
       </div>
@@ -13,8 +14,10 @@
 </template>
 
 <script>
+
 export default {
-  name:"bill"
+  name:"bill",
+  props: ["rates"]
 
 }
 </script>
