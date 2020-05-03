@@ -92,8 +92,7 @@ export default {
     category: null,
     type: "outcome",
     amount: 1,
-    description: '',
-    bill: null
+    description: ''
   }),
   validations: {
     amount: {minValue:minValue(1)},
@@ -104,9 +103,9 @@ export default {
     canCreateRecord() {
      if (this.type === "income") {
        return true
+     } else {
+       return this.info.bill >= this.amount
      }
-
-     return this.info.bill >= this.amount
   }
   },
   methods: {
@@ -123,8 +122,20 @@ export default {
               type: this.type,
               amount: this.amount,
               description: this.description,
-              date: new Date().toJSON()
-            })//для корректного сохранения в firebase используем метод JSON
+              date: new Date().toJSON() //для корректного сохранения в firebase используем метод JSON
+            })
+
+            const bill = this.type === 'income'
+              ? this.info.bill + this.amount
+              : this.info.bill - this.amount
+
+            await this.$store.dispatch('updateInfo', {bill})
+
+            this.$message('Запись успешно создана')
+            this.$v.$reset()
+            this.amount = 1
+            this.description = ""
+
             // eslint-disable-next-line no-empty
           } catch (e) {
           }
