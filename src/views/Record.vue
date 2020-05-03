@@ -6,6 +6,9 @@
       <h3>Новая запись</h3>
     </div>
    <Loader v-if="loading" />
+    <p v-else-if="!categories.length">Категории еще не созданы. <br>
+    <router-link to="/categories">Добавьте категорию</router-link>
+    </p>
     <form v-else class="form" @submit.prevent="onSubmit">
       <div class="input-field" >
         <select
@@ -103,9 +106,10 @@ export default {
     canCreateRecord() {
      if (this.type === "income") {
        return true
-     } else {
-       return this.info.bill >= this.amount
      }
+
+     return this.info.bill >= this.amount
+
   }
   },
   methods: {
