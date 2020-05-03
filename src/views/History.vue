@@ -8,43 +8,45 @@
     <canvas></canvas>
   </div>
 
-  <section>
-    <table>
-      <thead>
-      <tr>
-        <th>#</th>
-        <th>Сумма</th>
-        <th>Дата</th>
-        <th>Категория</th>
-        <th>Тип</th>
-        <th>Открыть</th>
-      </tr>
-      </thead>
+  <Loader v-if="loading" />
 
-      <tbody>
-      <tr>
-        <td>1</td>
-        <td>1212</td>
-        <td>12.12.32</td>
-        <td>name</td>
-        <td>
-          <span class="white-text badge red">Расход</span>
-        </td>
-        <td>
-          <button class="btn-small btn">
-            <i class="material-icons">open_in_new</i>
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+  <p v-else-if="!records.length" class="center">Записей пока нет. <br>
+    <router-link to="/record">Создать запись</router-link>
+  </p>
+
+  <section v-else>
+    <HistoryTable :records="records" />
   </section>
+
 </div>
 </template>
 
 <script>
-export default {
+import HistoryTable from '@/components/HistoryTable'
 
+export default {
+  name: 'history',
+    data: () => ({
+      records: [],
+      loading: true
+    }),
+  components: {
+    HistoryTable
+  },
+  async mounted() {
+
+    const categories =  await this.$store.dispatch('fetchCategories')
+    const records = await this.$store.dispatch('fetchRecords')
+
+    this.records = records.map(r => {
+      const categoryName = categories.find(cat => cat.id === r.categoryId).title
+      const typeClass = r.type === "income" ? 'green' : 'red'
+      const typeText = r.type === "income" ? 'Доход' : 'Расход'
+      return {...r, categoryName, typeClass, typeText}
+    })
+
+    this.loading=false
+  }
 }
 </script>
 

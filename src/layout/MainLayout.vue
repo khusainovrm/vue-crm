@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import messages from "@/utils/message"
 import Navbar from "@/components/app/Navbar.vue"
 import Sidebar from "@/components/app/Sidebar.vue"
 
@@ -46,8 +47,17 @@ export default {
     }
   },
   methods: {
+  },
+  computed : {
+    error () {
+      return this.$store.getters.error
+    }
+  },
+  watch: {
+    error (fbError){
+      this.$error(messages[fbError.code] || "Что-то пошло не так...")
+    }
   }
-
 }
 </script>
 

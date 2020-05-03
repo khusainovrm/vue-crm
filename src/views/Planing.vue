@@ -7,7 +7,7 @@
 
   <Loader v-if="loading" />
 
-  <p v-else-if="!categories.length">Категории еще не созданы. <br>
+  <p v-else-if="!categories.length" class="center">Категории еще не созданы. <br>
     <router-link to="/categories">Добавьте категорию</router-link>
   </p>
 
