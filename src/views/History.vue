@@ -15,14 +15,24 @@
   </p>
 
   <section v-else>
-    <HistoryTable :records="records" />
+    <HistoryTable :records="items" />
+    <Paginate
+      :page-count="pageCount"
+      :click-handler="pageChangeHandler"
+      :prev-text="'Назад'"
+      :next-text="'Вперед'"
+      :container-class="'pagination'"
+      :page-class="'waves-effect'"
+      v-model="page"
+    />
   </section>
-
 </div>
 </template>
 
 <script>
 import HistoryTable from '@/components/HistoryTable'
+import paginationMixin from '../mixins/pagination.mixin'
+
 
 export default {
   name: 'history',
@@ -30,21 +40,23 @@ export default {
       records: [],
       loading: true
     }),
+  mixins: [paginationMixin],
   components: {
     HistoryTable
   },
   async mounted() {
-
+    this.records = await this.$store.dispatch('fetchRecords')
     const categories =  await this.$store.dispatch('fetchCategories')
-    const records = await this.$store.dispatch('fetchRecords')
 
-    this.records = records.map(r => {
+
+    this.setupPagination(this.records.map(r => {
       const categoryName = categories.find(cat => cat.id === r.categoryId).title
       const typeClass = r.type === "income" ? 'green' : 'red'
       const typeText = r.type === "income" ? 'Доход' : 'Расход'
       return {...r, categoryName, typeClass, typeText}
-    })
+    }))
 
+    this.pageChangeHandler()
     this.loading=false
   }
 }
