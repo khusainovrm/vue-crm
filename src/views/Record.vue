@@ -3,11 +3,11 @@
 
 
     <div class="page-title">
-      <h3>Новая запись</h3>
+      <h3>{{'New record' | localazeFilter}}</h3>
     </div>
    <Loader v-if="loading" />
-    <p v-else-if="!categories.length">Категории еще не созданы. <br>
-    <router-link to="/categories">Добавьте категорию</router-link>
+    <p v-else-if="!categories.length">{{'Categories not created yet' | localazeFilter}} <br>
+    <router-link to="/categories">{{'Add category' | localazeFilter}}</router-link>
     </p>
     <form v-else class="form" @submit.prevent="onSubmit">
       <div class="input-field" >
@@ -19,7 +19,7 @@
             :key="c.id"
           >{{c.title}}</option>
         </select>
-        <label>Выберите категорию</label>
+        <label>{{'Select a category' | localazeFilter }}</label>
       </div>
 
       <p>
@@ -31,7 +31,7 @@
             value="income"
             v-model="type"
           />
-          <span>Доход</span>
+          <span>{{'Income' | localazeFilter }}</span>
         </label>
       </p>
 
@@ -44,7 +44,7 @@
             value="outcome"
             v-model="type"
           />
-          <span>Расход</span>
+          <span>{{'Expense' | localazeFilter }}</span>
         </label>
       </p>
 
@@ -55,8 +55,8 @@
           v-model.number="amount"
           :class="{invalid: !this.$v.amount.minValue}"
         >
-        <label for="amount">Сумма</label>
-        <span v-if="!this.$v.amount.minValue" class="helper-text invalid">Минимальное значение {{$v.amount.$params.minValue.min}}</span>
+        <label for="amount">{{'Amount' | localazeFilter }}</label>
+        <span v-if="!this.$v.amount.minValue" class="helper-text invalid">{{'Minimum value' | localazeFilter }} {{$v.amount.$params.minValue.min}}</span>
       </div>
 
       <div class="input-field">
@@ -66,10 +66,12 @@
           v-model="description"
           :class="{invalid: this.$v.description.$dirty  && !this.$v.description.required}"
         >
-        <label for="description">Описание</label>
+        <label for="description">{{'Description' | localazeFilter }}</label>
         <span
           v-if="this.$v.description.$dirty  && !this.$v.description.required"
-          class="helper-text invalid">Введите описание дохода/расхода</span>
+          class="helper-text invalid">
+          {{'Enter income / expense description' | localazeFilter }}
+          </span>
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">

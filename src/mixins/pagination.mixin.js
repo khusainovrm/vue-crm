@@ -12,10 +12,8 @@ export default {
   },
   methods: {
     pageChangeHandler(page){
-      if (page) {
-        this.$router.push(`${this.$route.path}?page=${page}`)
-        this.items = this.allItems[page-1] || this.allItems[0]
-      }
+      this.$router.push(`${this.$route.path}?page=${page}`)
+      this.items = this.allItems[page-1] || this.allItems[0]
     },
     setupPagination(allItems) {
       this.allItems = _.chunk(allItems, this.pageSize)

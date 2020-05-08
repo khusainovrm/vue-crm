@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store' 
 import dateFilter from '@/filter/dateFilter'
+import localazeFilter from '@/filter/localaze.filter'
 import currencyFilter from '@/filter/currencyFilter'
 import messagePlugin from '@/utils/message.plugin'
 import tooltipDirective from '@/directives/tooltip.directives'
@@ -23,6 +24,7 @@ Vue.config.productionTip = false
 Vue.use(Vuelidate)
 Vue.use(messagePlugin)
 Vue.filter("date", dateFilter)
+Vue.filter("localazeFilter", localazeFilter)
 Vue.filter("currencyFormat", currencyFilter)
 Vue.directive("tooltip", tooltipDirective)
 Vue.component("Loader", Loader)

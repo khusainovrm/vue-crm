@@ -2,7 +2,7 @@
   <div class="col s12 m6">
     <div>
       <div class="page-subtitle">
-        <h4>Редактировать</h4>
+        <h4>{{'Edit' | localazeFilter }}</h4>
       </div>
 
       <form @submit.prevent="submitHandler">
@@ -16,7 +16,7 @@
               :value="c.id"
             >{{c.title}}</option>
           </select>
-          <label>Выберите категорию</label>
+          <label>{{'Select a category' | localazeFilter }}</label>
         </div>
 
 
@@ -28,10 +28,10 @@
             :class="{invalid: $v.title.$dirty && !$v.title.required}"
 
           >
-          <label for="name">Название</label>
+          <label for="name">{{'Name' | localazeFilter }}</label>
           <span class="helper-text invalid"
             v-if="$v.title.$dirty && !$v.title.required"
-          >Введите название</span>
+          >{{'Enter a name' | localazeFilter }}</span>
         </div>
 
         <div class="input-field">
@@ -41,14 +41,14 @@
             v-model.number="limit"
             :class="{invalid: $v.limit.$dirty && !$v.title.minValue}"
           >
-          <label for="limit">Лимит</label>
+          <label for="limit">{{'Limit' | localazeFilter }}</label>
           <span class="helper-text invalid"
                 v-if="$v.limit.$dirty && !$v.title.minValue"
-          >Минимальная величина {{$v.limit.$params.minValue.min}}</span>
+          >{{'Minimum value' | localazeFilter }} {{$v.limit.$params.minValue.min}}</span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
-          Обновить
+          {{'Update' | localazeFilter }}
           <i class="material-icons right">send</i>
         </button>
       </form>

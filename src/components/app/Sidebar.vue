@@ -15,14 +15,16 @@
 </template>
 
 <script>
+import localazeFilter from '@/filter/localaze.filter'
+
 export default {
   data: () => ({
     links: [
-      {title:"Счет", url: "/", exact: true},
-      {title:"История", url: "/history",exact: false},
-      {title:"Планирование", url: "/planing",exact: false},
-      {title:"Новая запись", url: "/record",exact: false},
-      {title:"Категории", url: "/categories",exact: false}
+      {title:localazeFilter('Bill_name'), url: "/", exact: true},
+      {title:localazeFilter('Bill_history'), url: "/history"},
+      {title:localazeFilter('Bill_plan'), url: "/planing"},
+      {title:localazeFilter('Bill_record'), url: "/record"},
+      {title:localazeFilter('Bill_category'), url: "/categories"}
     ]
   }),
   props: ["value"]

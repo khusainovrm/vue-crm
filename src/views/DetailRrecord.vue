@@ -3,9 +3,9 @@
   <Loader v-if="loading" />
   <div v-else-if="record">
     <div class="breadcrumb-wrap">
-      <router-link to="/history" class="breadcrumb">История</router-link>
+      <router-link to="/history" class="breadcrumb">{{ 'Bill_history' | localazeFilter }}</router-link>
       <a class="breadcrumb" @click.prevent>
-        {{ record.type === 'outcome'? 'Расход' : 'Доход' }}
+        {{ record.type === 'outcome'? 'Outcome' : 'Income' | localazeFilter }}
       </a>
     </div>
     <div class="row">
@@ -16,9 +16,9 @@
 
         >
           <div class="card-content white-text">
-            <p>Описание: {{record.description}} </p>
-            <p>Сумма: {{record.amount | currencyFormat}} </p>
-            <p>Категория: {{record.categoryName}}</p>
+            <p>{{ 'Outcome' | localazeFilter }}: {{record.description}} </p>
+            <p>{{ 'Amount' | localazeFilter }}: {{record.amount | currencyFormat}} </p>
+            <p>{{ 'Category1' | localazeFilter }}: {{record.categoryName}}</p>
             <small>{{record.date | date("datetime") }}</small>
           </div>
         </div>
@@ -30,6 +30,9 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
+import localazeFilter from '../filter/localaze.filter'
+
 export default {
   name: "Detailed",
   data: () => ({

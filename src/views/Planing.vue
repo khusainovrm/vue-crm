@@ -1,14 +1,14 @@
 <template>
 <div>
   <div class="page-title">
-    <h3>Планирование</h3>
+    <h3>{{'Bill_plan' | localazeFilter }}</h3>
     <h4>{{info.bill | currencyFormat() }}</h4>
   </div>
 
   <Loader v-if="loading" />
 
   <p v-else-if="!categories.length" class="center">Категории еще не созданы. <br>
-    <router-link to="/categories">Добавьте категорию</router-link>
+    <router-link to="/categories">{{'Add category' | localazeFilter }}</router-link>
   </p>
 
   <section v-else>
@@ -32,6 +32,7 @@
 <script>
 import {mapGetters} from "vuex"
 import currencyFilter from '@/filter/currencyFilter'
+import localizeFilter from '../filter/localaze.filter'
 
 export default {
   data: () => ({
@@ -63,7 +64,7 @@ export default {
           : "red"
 
       const tooltipValue = cat.limit - spent
-      const tooltip = `${tooltipValue < 0 ? 'Превышение на: ' : 'Остаток: '} ${currencyFilter(Math.abs(tooltipValue))}`
+      const tooltip = `${tooltipValue < 0 ? localizeFilter('Excess over the limit') : localizeFilter('Balance')} ${currencyFilter(Math.abs(tooltipValue))}`
 
       return {...cat, spent, progressPercent, progressColor, tooltip}
 

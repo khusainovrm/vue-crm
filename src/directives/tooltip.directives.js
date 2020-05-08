@@ -1,4 +1,6 @@
 import M from 'materialize-css'
+
+
 export default {
   bind (el, {value}) {
     M.Tooltip.init(el, {html:value, position: "top"})

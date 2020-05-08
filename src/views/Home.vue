@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="page-title">
-    <h3>Счет</h3>
+    <h3>{{'Account' | localazeFilter }}</h3>
 
   
 

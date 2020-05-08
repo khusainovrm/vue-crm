@@ -5,11 +5,11 @@
     <thead>
     <tr>
       <th>#</th>
-      <th>Сумма</th>
-      <th>Время создания</th>
-      <th>Категория</th>
-      <th>Тип</th>
-      <th>Открыть</th>
+      <th>{{'Amount' | localazeFilter }}</th>
+      <th>{{'Record time' | localazeFilter }}</th>
+      <th>{{'Category' | localazeFilter }}</th>
+      <th>{{'Type' | localazeFilter }}</th>
+      <th>{{'Open' | localazeFilter }}</th>
     </tr>
     </thead>
 
